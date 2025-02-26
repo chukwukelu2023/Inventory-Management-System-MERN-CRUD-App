@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
-
+// import {dotenv} from 'dotenv'
+// dotenv.config()
+// require('dotenv').config()
+const backendUrl = `${process.env.REACT_APP_BACKEND_BASE_URL}:${process.env.REACT_APP_BACKEND_PORT}`
+console.log({backendUrl})
 export default function InsertProduct() {
     const [productName, setProductName] = useState("");
     const [productPrice, setProductPrice] = useState();
@@ -34,7 +38,7 @@ export default function InsertProduct() {
         setError("");
 
         try {
-            const res = await fetch("http://localhost:3001/insertproduct", {
+            const res = await fetch(`http://${backendUrl}/insertproduct`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

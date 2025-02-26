@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams, useNavigate } from 'react-router-dom';
 
+const backendUrl = `${process.env.REACT_APP_BACKEND_BASE_URL}:${process.env.REACT_APP_BACKEND_PORT}`
 export default function InsertProduct() {
     const [productName, setProductName] = useState("");
     const [productPrice, setProductPrice] = useState();
@@ -27,7 +28,7 @@ export default function InsertProduct() {
     useEffect(() => {
         const getProduct = async () => {
           try {
-            const res = await fetch(`http://localhost:3001/products/${id}`, {
+            const res = await fetch(`http://${backendUrl}/products/${id}`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json"
@@ -64,7 +65,7 @@ export default function InsertProduct() {
         setError("");
 
         try {
-            const response = await fetch(`http://localhost:3001/updateproduct/${id}`, {
+            const response = await fetch(`http://${backendUrl}/updateproduct/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
