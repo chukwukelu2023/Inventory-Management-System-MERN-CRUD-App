@@ -22,5 +22,15 @@ services:
       - 4000:4000
     environment:
       - PORT=4000
-      - mongoURI=mongodb+srv://docker:iLnyNdk1a307cljn@myatlasclusteredu.majd3mj.mongodb.net/?retryWrites=true&w=majority&appName=myAtlasClusterEDU
+      - mongoURI=${MONGO_URI}
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: ngrok-tunnel
+    command: ["http", "frontend-app:80"]
+    environment:
+      NGROK_AUTHTOKEN: "${NGROK_AUTHTOKEN}"
+    ports:
+      - 4040:4040
+    # depends_on:
+    #   - frontend
     
