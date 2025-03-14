@@ -30,4 +30,4 @@ jobs:
         with:
           context: ./Backend
           push: true
-          tags: ghcr.io/chukwukelu2023/backend-app:latest
+          tags: ghcr.io/chukwukelu2023/backend-app:${{ github.run_id }}
