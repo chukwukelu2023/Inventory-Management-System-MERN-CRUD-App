@@ -5,7 +5,7 @@ on:
     branches:
       - dockerfiles
 jobs:
-  image_build:
+  build_image_backend:
     uses: chukwukelu2023/automation-hub/.github/workflows/image_build_ghcr.yaml@main
     with:
       context-path: ./Backend
@@ -13,30 +13,12 @@ jobs:
     secrets:
        GHCR_PAT: ${{ secrets.GHCR_PAT }}
        REPO_OWNER: ${{ github.repository_owner }}
+  build_image_frontend:
+    uses: chukwukelu2023/automation-hub/.github/workflows/image_build_ghcr.yaml@main
+    with:
+      context-path: ./Frontend/inventory_management_system
+      tag-name: ghcr.io/chukwukelu2023/frontend-app:${{ github.run_number }}
+    secrets:
+       GHCR_PAT: ${{ secrets.GHCR_PAT }}
+       REPO_OWNER: ${{ github.repository_owner }}
 
-# jobs:
-#   docker:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v4
-
-#       - name: Login to GitHub Container Registry
-#         uses: docker/login-action@v3
-#         with:
-#           registry: ghcr.io
-#           username: ${{ github.repository_owner }}
-#           password: ${{ secrets.GHCR_PAT }}
-
-#       - name: Set up QEMU
-#         uses: docker/setup-qemu-action@v3
-
-#       - name: Set up Docker Buildx
-#         uses: docker/setup-buildx-action@v3
-
-#       - name: Build and push
-#         uses: docker/build-push-action@v6
-#         with:
-#           context: ./Backend
-#           push: true
-#           tags: ghcr.io/chukwukelu2023/backend-app:${{ github.run_id }}
