@@ -6,10 +6,10 @@ on:
       - dockerfiles
 jobs:
   image_build:
-    uses: ./.github/workflows/image_build.yaml
+    uses: chukwukelu2023/automation-hub/.github/workflows/image_build_ghcr.yaml@main
     with:
       context-path: ./Backend
-      tag-name: ghcr.io/chukwukelu2023/backend-app:${{ github.run_id }}
+      tag-name: ghcr.io/chukwukelu2023/backend-app:${{ github.run_number }}
     secrets:
        GHCR_PAT: ${{ secrets.GHCR_PAT }}
        REPO_OWNER: ${{ github.repository_owner }}
