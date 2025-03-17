@@ -78,5 +78,10 @@ router.delete('/deleteproduct/:id', async (req, res) => {
     }
 })
 
+//Healt Check
+router.get('/health', async (req, res)=>{
+    console.log({service:"healthy"})
+    res.status(200).send('HEALTHY')
+})
 
 module.exports = router;
