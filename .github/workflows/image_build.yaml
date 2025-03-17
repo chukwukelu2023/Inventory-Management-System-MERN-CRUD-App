@@ -13,7 +13,7 @@ on:
         GHCR_PAT:
           required: true
         REPO_OWNER:
-          required:true
+          required: true
 
 jobs:
   docker:
