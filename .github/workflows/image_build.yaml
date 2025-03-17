@@ -2,18 +2,18 @@ name: Deploy Docker Image
 
 on:
     workflow_call:
-    inputs:
-      context-path:
-        required: true
-        type: string
-      tag-name:
-        required: true
-        type: string
-    secrets:
-      GHCR_PAT:
-        required: true
-      REPO_OWNER:
-        required:true
+      inputs:
+        context-path:
+          required: true
+          type: string
+        tag-name:
+          required: true
+          type: string
+      secrets:
+        GHCR_PAT:
+          required: true
+        REPO_OWNER:
+          required:true
 
 jobs:
   docker:
