@@ -1,4 +1,5 @@
 ARG NODE_VERSION=18.0.0
+ARG PORT=4000
 
 FROM node:${NODE_VERSION}-alpine
 
@@ -20,7 +21,7 @@ USER node
 COPY . .
 
 # # Expose the port that the application listens on.
-# EXPOSE ${PORT}
+EXPOSE ${PORT}
 
 # Run the application.
 CMD ["npm","start"]
