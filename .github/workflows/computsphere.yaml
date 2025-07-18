@@ -1,0 +1,20 @@
+name: Build and Deploy on Computesphere
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - testing
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build Image
+      uses: computesphere/build-and-deploy-image-action@v1
+      with:
+        mode: build-only
+        name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
+        dockerfile: ./frontend/Dockerfile
