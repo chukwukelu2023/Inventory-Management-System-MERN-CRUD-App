@@ -17,4 +17,4 @@ jobs:
       with:
         mode: build-only
         name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
-        dockerfile: ./frontend/Dockerfile
+        dockerfile: ./Backend/Dockerfile
