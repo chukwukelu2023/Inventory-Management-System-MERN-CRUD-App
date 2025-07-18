@@ -17,7 +17,7 @@ jobs:
       with:
         mode: build-only
         name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
-        dockerfile: ./Backend/Dockerfile
+        dockerfile: ./Backend
 
 
   docker:
@@ -44,4 +44,4 @@ jobs:
         with:
           context: ./Backend
           push: false
-          tags: user/app:latest
+          tags: oluchioraekwe/backend-mern:v.${{ github.run_number }}
