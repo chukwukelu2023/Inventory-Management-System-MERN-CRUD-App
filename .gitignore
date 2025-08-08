@@ -1,3 +1,10 @@
+# Task data files
+tasks.json
+tasks_test.json
+# Playground and CLI files
+playground.js
+starter_app.js
+starter_app.test.js
 # Logs
 logs
 *.log

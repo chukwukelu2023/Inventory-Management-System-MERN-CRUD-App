@@ -1,0 +1,23 @@
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  app:
+    build:
+      context: ./Backend
+    container_name: backend-mern
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+    environment:
+      - mongoURI=mongodb://mongo:27017/mydb
+      - PORT=4000
+
+volumes:
+  mongo-data:
