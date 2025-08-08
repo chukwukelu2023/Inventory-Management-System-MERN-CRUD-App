@@ -22,7 +22,7 @@ router.post("/insertproduct", async (req, res) => {
         }
     }
     catch (err) {
-        console.log(err)
+        console.log(err.message)
     }
 })
 
@@ -31,10 +31,10 @@ router.get('/products', async (req, res) => {
 
     try {
         const getProducts = await products.find({})
-        res.status(201).json(getProducts);
+        res.status(200).json(getProducts);
     }
     catch (err) {
-        console.log(err);
+        console.log(err.message);
     }
 })
 
@@ -44,10 +44,10 @@ router.get('/products/:id', async (req, res) => {
     try {
         const getProduct = await products.findById(req.params.id);
         console.log(getProduct);
-        res.status(201).json(getProduct);
+        res.status(200).json(getProduct);
     }
     catch (err) {
-        console.log(err);
+        console.log(err.message);
     }
 })
 
@@ -58,10 +58,10 @@ router.put('/updateproduct/:id', async (req, res) => {
     try {
         const updateProducts = await products.findByIdAndUpdate(req.params.id, { ProductName, ProductPrice, ProductBarcode }, { new: true });
         console.log("Data Updated");
-        res.status(201).json(updateProducts);
+        res.status(200).json(updateProducts);
     }
     catch (err) {
-        console.log(err);
+        console.log(err.message);
     }
 })
 
@@ -71,10 +71,10 @@ router.delete('/deleteproduct/:id', async (req, res) => {
     try {
         const deleteProduct = await products.findByIdAndDelete(req.params.id);
         console.log("Data Deleted");
-        res.status(201).json(deleteProduct);
+        res.status(200).json(deleteProduct);
     }
     catch (err) {
-        console.log(err);
+        console.log(err.message);
     }
 })
 
