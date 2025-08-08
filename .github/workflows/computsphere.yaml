@@ -18,7 +18,7 @@ jobs:
         mode: build-and-deploy
         name: ${{ vars.IMAGE_NAME }}/backend-mern:v.${{ github.run_number }}
         account_id: ${{ vars.COMPUTESPHERE_ACCOUNT_ID }}
-        token: u_9M_grYk72CN9v0PgRR9eS49effEe9z
+        token: ytAQgBkUeYFZmHZYgQHYKjMjWeNmh3-w
         deployment_id: ${{ vars.DEPLOYMENT_ID }}
         registry: ${{ vars.REGISTRY }}
         type: private
