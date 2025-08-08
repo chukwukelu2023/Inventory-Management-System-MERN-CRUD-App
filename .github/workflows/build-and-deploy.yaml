@@ -28,9 +28,7 @@ jobs:
  
   check-changed-directory:
     name: Test changed-files
-    uses: chukwukelu2023/automation-hub/.github/workflows/detect-file-change.yaml@detect-changes
-    # outputs:
-    #   changed_dir: ${{ jobs.check-changed-directory.outputs.check-changes }}
+    uses: chukwukelu2023/automation-hub/.github/workflows/detect-file-change.yaml@detect-changes 
 
   use-files:
     runs-on: ubuntu-latest
@@ -41,13 +39,29 @@ jobs:
           echo "Detected changes:"
           echo "${{ needs.check-changed-directory.outputs.check-changes }}"
 
-  # build_and_push_backend:
-  #   uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
-  #   with:
-  #     context-path: ./Backend
-  #     tag-name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
-  #     registry-name: docker.io
-  #   secrets:
-  #      REGISTRY-PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-  #      REGISTRY-USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-  
+  build_and_push_backend:
+    uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
+    needs: check-changed-directory
+    if: contains(needs.check-changed-directory.outputs.check-changes, 'Backend/')
+    with:
+      context-path: ./Backend
+      tag-name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
+      registry-name: docker.io
+    secrets:
+       REGISTRY-PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+       REGISTRY-USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+
+  build_and_push_frontend:
+    uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
+    needs: check-changed-directory
+    if: contains(needs.check-changed-directory.outputs.check-changes, 'Frontend/')
+    with:
+      context-path: ./Frontend
+      tag-name: oluchioraekwe/frontend-mern:v.${{ github.run_number }}
+      registry-name: docker.io
+      build-args: |
+        REACT_APP_BACKEND_URL=https://d-backend-4765b9f4.computesphere.site
+    secrets:
+       REGISTRY-PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+       REGISTRY-USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+

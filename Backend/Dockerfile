@@ -16,7 +16,6 @@ USER node
 # Copy the rest of the source files into the image.
 COPY . .
 
-
 # # Expose the port that the application listens on.
 EXPOSE ${PORT}
 
