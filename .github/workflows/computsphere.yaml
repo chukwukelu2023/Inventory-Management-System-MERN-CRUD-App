@@ -8,40 +8,47 @@ on:
       - main
 
 jobs:
-  build:
+  build-deploy-backend:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Build Image
       uses: computesphere/build-and-deploy-image-action@v1
       with:
-        mode: build-only
-        name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
-        dockerfile: Backend/Dockerfile
+        mode: build-and-deploy
+        name: ${{ secrets.DOCKERHUB_USERNAME }}backend-mern:v.${{ github.run_number }}
+        account_id: ${{ vars.COMPUTESPHERE_ACCOUNT_ID }}
+        token: ${{ secrets.COMPUTESPHERE_API_TOKEN }}
+        deployment_id: ${{ vars.DEPLOYMENT_ID }}
+        registry: ${{ vars.REGISTRY }}
+        type: private
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        dockerfile: ./Backend/Dockerfile
 
 
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: ./Backend
-          push: false
-          tags: oluchioraekwe/backend-mern:v.${{ github.run_number }}
+  # docker:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     -
+  #       name: Checkout
+  #       uses: actions/checkout@v4
+  #     -
+  #       name: Login to Docker Hub
+  #       uses: docker/login-action@v3
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #     -
+  #       name: Set up QEMU
+  #       uses: docker/setup-qemu-action@v3
+  #     -
+  #       name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v3
+  #     -
+  #       name: Build and push
+  #       uses: docker/build-push-action@v6
+  #       with:
+  #         context: ./Backend
+  #         push: false
+  #         tags: ${{ secrets.DOCKERHUB_USERNAME }}backend-mern:v.${{ github.run_number }}
