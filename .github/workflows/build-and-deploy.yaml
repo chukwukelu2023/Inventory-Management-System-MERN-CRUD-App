@@ -11,6 +11,16 @@ on:
         options:
           - production
           - staging
+      trigger-backend:
+        description: 'Trigger backend build'
+        required: true
+        default: false
+        type: boolean
+      trigger-frontend:
+        description: 'Trigger frontend build'
+        required: true
+        default: false
+        type: boolean
   push:
     branches:
       - testing
@@ -51,7 +61,7 @@ jobs:
   build_and_push_backend:
     uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
     needs: check-changed-directory
-    if: contains(needs.check-changed-directory.outputs.check-changes, 'Backend/')
+    if: contains(needs.check-changed-directory.outputs.check-changes, 'Backend/') || inputs.trigger-backend
     with:
       context-path: ./Backend
       tag-name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
@@ -63,7 +73,7 @@ jobs:
   build_and_push_frontend:
     uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
     needs: check-changed-directory
-    if: contains(needs.check-changed-directory.outputs.check-changes, 'Frontend/')
+    if: contains(needs.check-changed-directory.outputs.check-changes, 'Frontend/') || inputs.trigger-frontend
     with:
       context-path: ./Frontend
       tag-name: oluchioraekwe/frontend-mern:v.${{ github.run_number }}
