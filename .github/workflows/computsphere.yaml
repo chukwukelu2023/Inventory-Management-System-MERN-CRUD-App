@@ -50,5 +50,5 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./Backend
-          push: false
+          push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/backend-mern:v.${{ github.run_number }}
