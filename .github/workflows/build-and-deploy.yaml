@@ -1,4 +1,4 @@
-name: Build and Deploy on Computesphere
+name: Build and Deploy MERN APP
 
 on:
   workflow_dispatch:
@@ -61,6 +61,9 @@ jobs:
       registry-name: docker.io
       build-args: |
         REACT_APP_BACKEND_URL=https://d-backend-4765b9f4.computesphere.site
+        REACT_APP_NODE_ENV=production
+        REACT_APP_BACKEND_BASE_URL=localhost
+        REACT_APP_BACKEND_PORT=4000
     secrets:
        REGISTRY-PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
        REGISTRY-USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}

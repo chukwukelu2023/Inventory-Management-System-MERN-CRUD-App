@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-// import {dotenv} from 'dotenv'
-// dotenv.config()
-// require('dotenv').config()
-const backendUrl = `${process.env.REACT_APP_BACKEND_BASE_URL}:${process.env.REACT_APP_BACKEND_PORT}`
+
+let backendUrl = `http://${process.env.REACT_APP_BACKEND_BASE_URL}:${process.env.REACT_APP_BACKEND_PORT}`
+if (process.env.REACT_APP_NODE_ENV === "production") {
+    backendUrl = process.env.REACT_APP_BACKEND_URL;
+}
 console.log({backendUrl})
 export default function Products() {
 
@@ -16,7 +17,7 @@ export default function Products() {
     const getProducts = async (e) => {
         console.log({backendUrl})
         try {
-            const res = await fetch(`http://${backendUrl}/products`, {
+            const res = await fetch(`${backendUrl}/products`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -39,7 +40,7 @@ export default function Products() {
 
     const deleteProduct = async (id) => {
 
-        const response = await fetch(`http://${backendUrl}/deleteproduct/${id}`, {
+        const response = await fetch(`${backendUrl}/deleteproduct/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
