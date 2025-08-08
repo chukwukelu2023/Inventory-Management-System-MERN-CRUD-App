@@ -2,6 +2,15 @@ name: Build and Deploy MERN APP
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
   push:
     branches:
       - testing
@@ -61,7 +70,7 @@ jobs:
       registry-name: docker.io
       build-args: |
         REACT_APP_BACKEND_URL=https://d-backend-4765b9f4.computesphere.site
-        REACT_APP_NODE_ENV=production
+        REACT_APP_NODE_ENV=${{ inputs.environment}} 
         REACT_APP_BACKEND_BASE_URL=localhost
         REACT_APP_BACKEND_PORT=4000
     secrets:
