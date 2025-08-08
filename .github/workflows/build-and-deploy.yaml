@@ -14,19 +14,19 @@ on:
       trigger-backend:
         description: 'Trigger backend build'
         required: false
-        default: 'NO'
+        default: 'no_build'
         type: choice
         options:
-          - YES
-          - NO
+          - no_build
+          - build
       trigger-frontend:
         description: 'Trigger frontend build'
         required: false
-        default: 'NO'
+        default: 'no_build'
         type: choice
         options:
-          - YES
-          - NO
+          - no_build
+          - build
   push:
     branches:
       - testing
@@ -67,7 +67,7 @@ jobs:
   build_and_push_backend:
     uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
     needs: check-changed-directory
-    if: contains(needs.check-changed-directory.outputs.check-changes, 'Backend/') || inputs.trigger-backend == 'YES'
+    if: contains(needs.check-changed-directory.outputs.check-changes, 'Backend/') || inputs.trigger-backend == 'build'
     with:
       context-path: ./Backend
       tag-name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
@@ -79,7 +79,7 @@ jobs:
   build_and_push_frontend:
     uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
     needs: check-changed-directory
-    if: contains(needs.check-changed-directory.outputs.check-changes, 'Frontend/') || inputs.trigger-frontend == 'YES'
+    if: contains(needs.check-changed-directory.outputs.check-changes, 'Frontend/') || inputs.trigger-frontend == 'build'
     with:
       context-path: ./Frontend
       tag-name: oluchioraekwe/frontend-mern:v.${{ github.run_number }}
