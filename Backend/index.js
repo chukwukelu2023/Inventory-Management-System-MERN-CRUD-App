@@ -14,5 +14,5 @@ app.use(express.json());
 app.use(router);
 
 app.listen(port, () => {
-  console.log(`Backend app listening on port ${port}`)
+  console.log(`Backend app is listening on port ${port}`)
 })
