@@ -13,13 +13,11 @@ on:
           - staging
       trigger-backend:
         description: 'Trigger backend build'
-        required: true
-        default: false
+        required: false
         type: boolean
       trigger-frontend:
         description: 'Trigger frontend build'
-        required: true
-        default: false
+        required: false
         type: boolean
   push:
     branches:
