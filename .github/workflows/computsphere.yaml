@@ -16,7 +16,7 @@ jobs:
       uses: computesphere/build-and-deploy-image-action@v1
       with:
         mode: build-and-deploy
-        name: ${{ secrets.DOCKERHUB_USERNAME }}backend-mern:v.${{ github.run_number }}
+        name: ${{ vars.IMAGE_NAME }}/backend-mern:v.${{ github.run_number }}
         account_id: ${{ vars.COMPUTESPHERE_ACCOUNT_ID }}
         token: ${{ secrets.COMPUTESPHERE_API_TOKEN }}
         deployment_id: ${{ vars.DEPLOYMENT_ID }}
