@@ -5,7 +5,7 @@ FROM node:${NODE_VERSION}-alpine
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY Backend/package*.json ./
 
 RUN npm install
 
@@ -14,7 +14,7 @@ RUN npm install
 USER node
 
 # Copy the rest of the source files into the image.
-COPY . .
+COPY Backend .
 
 # # Expose the port that the application listens on.
 EXPOSE ${PORT}

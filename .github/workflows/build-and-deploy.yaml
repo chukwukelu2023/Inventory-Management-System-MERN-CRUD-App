@@ -33,24 +33,6 @@ on:
       - main
 
 jobs:
-  # build-deploy-backend:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Build Image
-  #     uses: computesphere/build-and-deploy-image-action@v1
-  #     with:
-  #       mode: build-and-deploy
-  #       name: ${{ vars.IMAGE_NAME }}/backend-mern:v.${{ github.run_number }}
-  #       account_id: ${{ vars.COMPUTESPHERE_ACCOUNT_ID }}
-  #       token: ${{ secrets.COMPUTESPHERE_API_TOKEN }}
-  #       deployment_id: ${{ vars.DEPLOYMENT_ID }}
-  #       registry: ${{ vars.REGISTRY }}
-  #       type: private
-  #       username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #       password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #       dockerfile: ./Backend/Dockerfile detect-changes
- 
   check-changed-directory:
     name: Test changed-files
     uses: chukwukelu2023/automation-hub/.github/workflows/detect-file-change.yaml@detect-changes 
@@ -64,17 +46,38 @@ jobs:
           echo "Detected changes: "
           echo "${{ needs.check-changed-directory.outputs.check-changes }}"
 
-  build_and_push_backend:
-    uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
+  
+  build-deploy-backend:
+    runs-on: ubuntu-latest
     needs: check-changed-directory
     if: contains(needs.check-changed-directory.outputs.check-changes, 'Backend/') || inputs.trigger-backend == 'build'
-    with:
-      context-path: ./Backend
-      tag-name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
-      registry-name: docker.io
-    secrets:
-       REGISTRY-PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-       REGISTRY-USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build Image
+      uses: computesphere/build-and-deploy-image-action@v1
+      with:
+        mode: build-and-deploy
+        name: ${{ vars.IMAGE_NAME }}/backend-mern:v.0.${{ github.run_number }}
+        account_id: ${{ vars.COMPUTESPHERE_ACCOUNT_ID }}
+        token: ${{ secrets.COMPUTESPHERE_API_TOKEN }}
+        deployment_id: ${{ vars.DEPLOYMENT_ID }}
+        registry: ${{ vars.REGISTRY }}
+        type: private
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        dockerfile: ./Backend/Dockerfile
+
+  # build_and_push_backend:
+  #   uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
+  #   needs: check-changed-directory
+  #   if: contains(needs.check-changed-directory.outputs.check-changes, 'Backend/') || inputs.trigger-backend == 'build'
+  #   with:
+  #     context-path: ./Backend
+  #     tag-name: oluchioraekwe/backend-mern:v.${{ github.run_number }}
+  #     registry-name: docker.io
+  #   secrets:
+  #      REGISTRY-PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+  #      REGISTRY-USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
   build_and_push_frontend:
     uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
