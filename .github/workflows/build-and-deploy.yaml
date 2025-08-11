@@ -71,7 +71,7 @@ jobs:
   build-deploy-frontend:
     runs-on: ubuntu-latest
     needs: check-changed-directory
-    if: contains(needs.check-changed-directory.outputs.check-changes, 'Fontend/') || inputs.trigger-frontend == 'build'
+    if: contains(needs.check-changed-directory.outputs.check-changes, 'Frontend/') || inputs.trigger-frontend == 'build'
     steps:
     - uses: actions/checkout@v4
     - name: Build Image
