@@ -86,7 +86,7 @@ jobs:
         type: private
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-        dockerfile: ./Backend/Dockerfile
+        dockerfile: ./Frontend/Dockerfile
         extra_build_args: |
           REACT_APP_BACKEND_URL=https://d-backend-4765b9f4.computesphere.site/api
           REACT_APP_NODE_ENV=${{ inputs.environment}} 
