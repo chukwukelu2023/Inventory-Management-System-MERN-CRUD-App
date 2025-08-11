@@ -68,6 +68,32 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         dockerfile: ./Backend/Dockerfile
 
+  build-deploy-frontend:
+    runs-on: ubuntu-latest
+    needs: check-changed-directory
+    if: contains(needs.check-changed-directory.outputs.check-changes, 'Fontend/') || inputs.trigger-frontend == 'build'
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build Image
+      uses: computesphere/build-and-deploy-image-action@v1
+      with:
+        mode: build-and-deploy
+        name: ${{ vars.IMAGE_NAME }}/backend-mern:v.0.${{ github.run_number }}
+        account_id: ${{ vars.COMPUTESPHERE_ACCOUNT_ID }}
+        token: ${{ secrets.COMPUTESPHERE_API_TOKEN }}
+        deployment_id: ${{ vars.FE_DEPLOYMENT_ID }}
+        registry: ${{ vars.REGISTRY }}
+        type: private
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        dockerfile: ./Backend/Dockerfile
+        extra_build_args: |
+          REACT_APP_BACKEND_URL=https://d-backend-4765b9f4.computesphere.site/api
+          REACT_APP_NODE_ENV=${{ inputs.environment}} 
+          REACT_APP_BACKEND_BASE_URL=localhost
+          REACT_APP_BACKEND_PORT=4000
+
+
   # build_and_push_backend:
   #   uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
   #   needs: check-changed-directory
@@ -80,20 +106,20 @@ jobs:
   #      REGISTRY-PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
   #      REGISTRY-USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
-  build_and_push_frontend:
-    uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
-    needs: check-changed-directory
-    if: contains(needs.check-changed-directory.outputs.check-changes, 'Frontend/') || inputs.trigger-frontend == 'build'
-    with:
-      context-path: ./Frontend
-      tag-name: oluchioraekwe/frontend-mern:v.${{ github.run_number }}
-      registry-name: docker.io
-      build-args: |
-        REACT_APP_BACKEND_URL=https://d-backend-4765b9f4.computesphere.site
-        REACT_APP_NODE_ENV=${{ inputs.environment}} 
-        REACT_APP_BACKEND_BASE_URL=localhost
-        REACT_APP_BACKEND_PORT=4000
-    secrets:
-       REGISTRY-PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-       REGISTRY-USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  # build_and_push_frontend:
+  #   uses: chukwukelu2023/automation-hub/.github/workflows/image_build_dockerhub.yaml@v1.0.0
+  #   needs: check-changed-directory
+  #   if: contains(needs.check-changed-directory.outputs.check-changes, 'Frontend/') || inputs.trigger-frontend == 'build'
+  #   with:
+  #     context-path: ./Frontend
+  #     tag-name: oluchioraekwe/frontend-mern:v.${{ github.run_number }}
+  #     registry-name: docker.io
+  #     build-args: |
+  #       REACT_APP_BACKEND_URL=https://d-backend-4765b9f4.computesphere.site
+  #       REACT_APP_NODE_ENV=${{ inputs.environment}} 
+  #       REACT_APP_BACKEND_BASE_URL=localhost
+  #       REACT_APP_BACKEND_PORT=4000
+  #   secrets:
+  #      REGISTRY-PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+  #      REGISTRY-USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 

@@ -16,11 +16,11 @@ ENV REACT_APP_NODE_ENV=$REACT_APP_NODE_ENV
 ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
 
 # Install dependencies first
-COPY package*.json ./
+COPY Frontend/package*.json ./
 RUN npm install
 
 # Copy source and build
-COPY . .
+COPY Frontend .
 RUN npm run build
 
 # Stage 2: Serve app with Nginx
