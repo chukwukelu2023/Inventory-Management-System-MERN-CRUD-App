@@ -30,6 +30,7 @@ on:
   push:
     branches:
       - testing
+      - staging
       - main
 
 jobs:
