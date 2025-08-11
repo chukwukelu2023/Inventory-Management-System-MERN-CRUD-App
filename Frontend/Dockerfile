@@ -33,7 +33,7 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Optional: Copy custom nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY Frontend/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 

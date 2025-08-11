@@ -78,7 +78,7 @@ jobs:
       uses: computesphere/build-and-deploy-image-action@v1
       with:
         mode: build-and-deploy
-        name: ${{ vars.IMAGE_NAME }}/backend-mern:v.0.${{ github.run_number }}
+        name: ${{ vars.IMAGE_NAME }}/frontend-mern:v.0.${{ github.run_number }}
         account_id: ${{ vars.COMPUTESPHERE_ACCOUNT_ID }}
         token: ${{ secrets.COMPUTESPHERE_API_TOKEN }}
         deployment_id: ${{ vars.FE_DEPLOYMENT_ID }}
@@ -87,11 +87,11 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         dockerfile: ./Frontend/Dockerfile
-        extra_build_args: |
-          REACT_APP_BACKEND_URL=https://d-backend-4765b9f4.computesphere.site/api
-          REACT_APP_NODE_ENV=${{ inputs.environment}} 
-          REACT_APP_BACKEND_BASE_URL=localhost
-          REACT_APP_BACKEND_PORT=4000
+        extra_build_args: >-
+          --build-arg REACT_APP_BACKEND_URL=https://d-backend-4765b9f4.computesphere.site/api
+          --build-arg REACT_APP_NODE_ENV=${{ inputs.environment}} 
+          --build-arg REACT_APP_BACKEND_BASE_URL=localhost
+          --build-arg REACT_APP_BACKEND_PORT=4000
 
 
   # build_and_push_backend:
