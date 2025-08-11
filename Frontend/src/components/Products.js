@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 let backendUrl = `http://${process.env.REACT_APP_BACKEND_BASE_URL}:${process.env.REACT_APP_BACKEND_PORT}`
+
 console.log({environment: process.env.REACT_APP_NODE_ENV})
+
 if (process.env.REACT_APP_NODE_ENV === "production") {
     backendUrl = process.env.REACT_APP_BACKEND_URL;
 }
