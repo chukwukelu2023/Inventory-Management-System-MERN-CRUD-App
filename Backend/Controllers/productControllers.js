@@ -25,7 +25,6 @@ async function insertProduct(req, res) {
 // Read all
 async function getProducts(req, res) {
     try {
-        console.log('fetching all products in database')
         logger.info('Fetching all products');
         const products = await productService.getAllProducts();
         res.status(200).json(products);
@@ -38,7 +37,6 @@ async function getProducts(req, res) {
 // Read one
 async function getProduct(req, res) {
     try {
-        console.log(`fetching product with ID: ${req.params.id}`);
         logger.info('Fetching product with ID: ' + req.params.id);
         const product = await productService.getProductById(req.params.id);
         if (!product) {

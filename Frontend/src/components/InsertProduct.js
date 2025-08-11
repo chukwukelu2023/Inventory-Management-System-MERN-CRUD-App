@@ -39,7 +39,7 @@ export default function InsertProduct() {
         setError("");
 
         try {
-            const res = await fetch(`${backendUrl}/insertproduct`, {
+            const res = await fetch(`${backendUrl}/products`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

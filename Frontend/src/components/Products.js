@@ -28,8 +28,7 @@ export default function Products() {
             });
 
             const data = await res.json();
-
-            if (res.status === 201) {
+            if (res.status === 200) {
                 console.log("Data Retrieved.");
                 setProductData(data);
             }
@@ -43,7 +42,7 @@ export default function Products() {
 
     const deleteProduct = async (id) => {
 
-        const response = await fetch(`${backendUrl}/deleteproduct/${id}`, {
+        const response = await fetch(`${backendUrl}/products/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

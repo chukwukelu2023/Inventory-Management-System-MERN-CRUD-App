@@ -46,8 +46,8 @@ app.use((err, req, res, next) => {
 
 // app.use(cors());
 app.use(express.json());
-app.use(router);
-app.use('/api', productRoutes);
+// app.use(router);
+app.use(productRoutes);
 
 app.listen(port, () => {
   console.log(`Backend app is listening on port ${port}`)

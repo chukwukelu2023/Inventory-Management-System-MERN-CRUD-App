@@ -40,7 +40,7 @@ export default function InsertProduct() {
       
             const data = await res.json();
       
-            if (res.status === 201) {
+            if (res.status === 200) {
               console.log("Data Retrieved.");
               setProductName(data.ProductName);
               setProductPrice(data.ProductPrice);
@@ -68,7 +68,7 @@ export default function InsertProduct() {
         setError("");
 
         try {
-            const response = await fetch(`${backendUrl}/updateproduct/${id}`, {
+            const response = await fetch(`${backendUrl}/products/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -78,7 +78,7 @@ export default function InsertProduct() {
 
             await response.json();
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 alert("Data Updated");
                 navigate('/products');
             }
