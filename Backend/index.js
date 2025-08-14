@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan');
 const logger = require("./logger")
 const productRoutes = require('./Routes/productRoutes');
-const router = require('./Routes/router')
+// const router = require('./Routes/router')
 require('dotenv').config()
 const connectToMongo = require('./db')
 
